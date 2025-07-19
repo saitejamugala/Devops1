@@ -1,0 +1,49 @@
+
+
+1.Created namespace.
+my-app
+kubectl apply -f namespace.yaml
+
+
+#Create secrets for mongodb
+kubectl create secret generic mongo-secret \
+  --from-literal=MONGO_INITDB_ROOT_USERNAME=admin \
+  --from-literal=MONGO_INITDB_ROOT_PASSWORD=admin123 \
+  -n my-app
+
+
+2.Create ConfigMap for MongoDB
+kubectl apply -f mongo-configmap.yaml
+
+3.create a persistent volume for mongodb&appdata
+kubectl apply -f mongo-pv.yaml
+kubectl apply -f mongo-pvc.yaml
+
+
+4.Create a deployment for mongodb
+kubectl apply -f mongo-deployment.yaml
+kubectl apply -f mongo-service.yaml
+
+5.create a backend deployment&service
+kubectl apply -f backend-deployment.yaml
+kubectl apply -f backend-service.yaml
+
+
+6.create a deployment for frontend (nginx with custom app)
+kubectl apply -f frontend-deployment.yaml
+kubectl apply -f frontend-service.yaml
+
+7.check all the pods where running or not
+kubectl get pods --namespace=my-app
+
+
+
+8.access the application
+#get the node port
+kubectl get svc frontend-service -n my-app
+
+#kubectl get nodes -o wide
+Get the I.P
+
+http://<NodeIP>:<NodePort>
+

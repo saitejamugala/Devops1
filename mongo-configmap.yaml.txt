@@ -1,0 +1,8 @@
+# mongo-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: my-app
+data:
+  database_name: mydb
